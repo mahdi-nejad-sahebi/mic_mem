@@ -1,7 +1,26 @@
-#include <stdio.h>
+/* Include ***********/
+#include <tests/mm_test_float8.h>
 
-int main()
+
+
+/* Definition ********/
+
+
+
+/* API ***************/
+static void Error()
+{
+  /* Error calculation compare to float_t */
+
+}
+
+static void Random()
 {
 
-  return 0;
+}
+
+void Test_Float8()
+{
+  Random();
+  Error();
 }
