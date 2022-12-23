@@ -1,14 +1,14 @@
-/* Include ***********/
+/********** Include */
 #ifndef __MM_FLOAT8_H__
 #define __MM_FLOAT8_H__
 #include <stdint.h>
 
 
-/* Definition ********/
+/********** Definition */
 typedef uint8_t MM_Float8_t;
 
 
-/* API ***************/
+/********** API */
 float       MM_Float8_Get(MM_Float8_t const _val);
 MM_Float8_t MM_Float8_Set(float const _val);
 

@@ -10,5 +10,5 @@
 /* API ***************/
 void Test()
 {
-
+  Test_Float8();
 }
