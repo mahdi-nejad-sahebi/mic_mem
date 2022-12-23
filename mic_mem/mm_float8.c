@@ -20,9 +20,9 @@ typedef union __attribute__((packed, aligned(1)))
 
   struct
   {
+    uint8_t Man : 5;  /* Mantisa */
+    uint8_t Exp : 2;  /* Exponent */
     uint8_t Sgn : 1;  /* Sign */
-    uint8_t Exp : 3;  /* Exponent : 10^(e-2) */
-    uint8_t Man : 4;  /* Mantisa */
   }__attribute__((packed, aligned(1)));
 }Float8_t;
 
@@ -43,9 +43,9 @@ typedef union __attribute__((packed, aligned(4)))
 
   struct
   {
-    uint8_t  Sgn : 1;   /* Sign */
-    uint8_t  Exp : 8;   /* Exponent */
     uint32_t Man : 23;  /* Mantisa */
+    uint8_t  Exp : 8;   /* Exponent */
+    uint8_t  Sgn : 1;   /* Sign */
   }__attribute__((packed, aligned(4)));
 }Float32_t;
 
@@ -56,8 +56,6 @@ float MM_Float8_Get(MM_Float8_t const _f8)
 {
   Float8_t* const f8 = (Float8_t*)&_f8;
   Float32_t f32 = {0U};
-
-  f32.Sgn = f8->Sgn;
 
   if (0U == f8->Exp)
   {
@@ -70,14 +68,14 @@ float MM_Float8_Get(MM_Float8_t const _f8)
 
     uint8_t pow = (f8->Exp - 1U);
 
-    while (pow)
+    while (pow--)
     {
       f32.Mem *= 10.0F;
-      pow--;
     }
     f32.Mem *= 3.0F;
   }
 
+  f32.Sgn = f8->Sgn;
   return f32.Mem;
 }
 
@@ -89,7 +87,7 @@ MM_Float8_t MM_Float8_Set(float const _f32)
   f8.Sgn = f32->Sgn;
 
   float const val = fabsf(_f32);
-  if (val < 1.0F)
+  if (val <= 1.0F)
   {
     float t1 = val / 3.0F;
     float t2 = t1 * 100.0F;
@@ -99,6 +97,7 @@ MM_Float8_t MM_Float8_Set(float const _f32)
   else
   {
     uint8_t pow = 0U;
+
     float t1 = (val / 3.0F);
 
     while (t1 > 31.0F)
