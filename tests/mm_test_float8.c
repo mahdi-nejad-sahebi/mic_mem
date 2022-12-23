@@ -9,12 +9,23 @@
 
 
 /* API ***************/
+//! move to related module
+float MM_Rand()
+{
+  return (rand() / (float)RAND_MAX);
+}
+
+float MM_RandRng(float const _a, float const _b)
+{
+  return (_a + (Rand() * (_b - _a)));
+}
+
 static void Error()
 {
   while (1)
   {
     /* Error calculation compare to float_t */
-    float x1 = 9;
+    float x1 = MM_RandRng(-9300, 9300);
     float x2 = 0;
     float d = 0;
     float err = 0;
