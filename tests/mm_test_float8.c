@@ -11,19 +11,22 @@
 /* API ***************/
 static void Error()
 {
-  /* Error calculation compare to float_t */
-  float x1 = 9;
-  float x2 = 0;
-  float d = 0;
-  float err = 0;
-  MM_Float8_t y = 0;
+  while (1)
+  {
+    /* Error calculation compare to float_t */
+    float x1 = 9;
+    float x2 = 0;
+    float d = 0;
+    float err = 0;
+    MM_Float8_t y = 0;
 
-  y = MM_Float8_Set(x1);
-  x2 = MM_Float8_Get(y);
-  d = fabsf(x2 - x1);
-  err = (d / x1);
+    y = MM_Float8_Set(x1);
+    x2 = MM_Float8_Get(y);
+    d = fabsf(x2 - x1);
+    err = (d / x1);
 
-  d = 0;
+    d = 0;
+  }
 }
 
 static void Random()

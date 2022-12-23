@@ -68,9 +68,12 @@ float MM_Float8_Get(MM_Float8_t const _f8)
   {
     f32.Mem = f8->Man;
 
-    while (f8->Exp)
+    uint8_t pow = (f8->Exp - 1U);
+
+    while (pow)
     {
       f32.Mem *= 10.0F;
+      pow--;
     }
     f32.Mem *= 3.0F;
   }
@@ -83,6 +86,8 @@ MM_Float8_t MM_Float8_Set(float const _f32)
   Float8_t f8 = {0U};
   Float32_t* const f32 = (Float32_t*)&_f32;
 
+  f8.Sgn = f32->Sgn;
+
   float const val = fabsf(_f32);
   if (val < 1.0F)
   {
@@ -93,8 +98,8 @@ MM_Float8_t MM_Float8_Set(float const _f32)
   }
   else
   {
-    int8_t pow = 0;
-    float t1 = val / 3.0F;
+    uint8_t pow = 0U;
+    float t1 = (val / 3.0F);
 
     while (t1 > 31.0F)
     {
@@ -104,8 +109,7 @@ MM_Float8_t MM_Float8_Set(float const _f32)
     f8.Man = (uint8_t)t1;
     f8.Exp = (pow + 1U);
   }
-  f8.Sgn = f32->Sgn;
-  f8.Man = f32->Man >> 19U;
+
 
   return f8.Mem;
 }
